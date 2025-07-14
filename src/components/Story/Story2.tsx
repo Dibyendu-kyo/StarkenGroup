@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function AboutStatsSection() {
   return (
-    <section className="px-6 py-20 bg-white flex justify-center">
+    <section className="px-2 py-20 bg-white flex justify-center">
       <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         {/* Left Content */}
         <div className="space-y-10 flex flex-col justify-center">

@@ -10,7 +10,7 @@ export default function CompaniesSection() {
 
   return (
     <section className="bg-[#f2f5f9] py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
         <h2 className="text-3xl font-semibold text-gray-900 max-w-3xl mb-12">
           Our Companies
         </h2>

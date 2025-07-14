@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function AboutSection() {
   return (
-    <section className="max-w-7xl mx-auto px-6 py-16 flex flex-col lg:flex-row items-center gap-12 mt-20">
+    <section className="max-w-7xl mx-auto px-2 py-16 flex flex-col lg:flex-row items-center gap-12 mt-20">
       {/* Left: Image with "Who we are" */}
       <div className="w-full lg:w-[45%]">
         <div className="mb-3 flex items-center gap-2 text-sm text-gray-500">
