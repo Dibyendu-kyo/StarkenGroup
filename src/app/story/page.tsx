@@ -21,7 +21,6 @@ const OurStory = () => {
             < Story1 />
             < Home6 />
             < Story2 />
-            < Team />
             {/* < Blog />
             < Testimonials />
             < FAQ /> */}

@@ -91,8 +91,8 @@ function Navbar() {
         </div>
       </div>
 
-      <nav className="bg-white fixed w-full top-0 z-40 font-poppins text-gray-800 px-4 py-2 shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="bg-white fixed w-full top-0 z-40 font-poppins text-gray-800 pl-0 pr-4 py-2 shadow-md">
+        <div className="max-w-7xl mx-auto pl-0 pr-4 sm:pl-0 sm:pr-6 lg:pl-0 lg:pr-8">
           <div className="flex justify-between h-17 items-center">
             {/* Logo */}
             <div className="flex-shrink-0 flex items-center">
