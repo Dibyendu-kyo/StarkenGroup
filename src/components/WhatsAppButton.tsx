@@ -36,7 +36,7 @@ export default function WhatsAppButton() {
     };
     
     s.onload = function() {
-      // @ts-expect-error
+      // @ts-expect-error: The CreateWhatsappChatWidget function is injected by the external WATI script and is not typed.
       CreateWhatsappChatWidget(options);
     };
     

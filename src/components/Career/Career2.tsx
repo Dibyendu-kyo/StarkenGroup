@@ -281,7 +281,7 @@ Please contact me regarding this application.`;
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">Join Our Team</h1>
         <p className="text-lg text-gray-600">
-          We're always looking for talented individuals to join our diverse team across multiple industries.
+          We&apos;re always looking for talented individuals to join our diverse team across multiple industries.
         </p>
       </div>
 
