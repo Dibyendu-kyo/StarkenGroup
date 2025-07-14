@@ -36,7 +36,7 @@ export default function WhatsAppButton() {
     };
     
     s.onload = function() {
-      // @ts-ignore
+      // @ts-expect-error
       CreateWhatsappChatWidget(options);
     };
     

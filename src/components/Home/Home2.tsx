@@ -13,7 +13,7 @@ export default function FeaturedIndustries() {
       <h2 className="text-3xl font-semibold mb-10">Our Industries</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-        {featuredIndustries.map((industry, index) => (
+        {featuredIndustries.map((industry) => (
           <PropertyCard
             key={industry.id}
             image={industry.icon}

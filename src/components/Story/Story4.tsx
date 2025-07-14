@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Plus, Minus, Home } from 'lucide-react';
+import { Plus, Minus } from 'lucide-react';
 
 const faqs = [
   {
@@ -46,7 +46,7 @@ export default function FaqSection() {
 
   return (
     <section className="px-4 md:px-16 py-20 max-w-7xl mx-auto">
-      <div className="text-sm text-gray-500 mb-2">FAQ's</div>
+      <div className="text-sm text-gray-500 mb-2">FAQ&apos;s</div>
       <h2 className="text-4xl font-semibold text-gray-900 mb-10">Frequently Asked Questions</h2>
 
       <div className="max-w-4xl">

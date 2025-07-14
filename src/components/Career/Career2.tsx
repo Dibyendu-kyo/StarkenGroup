@@ -54,7 +54,7 @@ const jobCards = [
 
 export default function CareerPage() {
   const [showForm, setShowForm] = useState(false);
-  const [selectedJob, setSelectedJob] = useState<any>(null);
+  const [selectedJob, setSelectedJob] = useState<typeof jobCards[0] | null>(null);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -65,7 +65,7 @@ export default function CareerPage() {
     message: "",
   });
 
-  const handleApply = (job: any) => {
+  const handleApply = (job: typeof jobCards[0]) => {
     setSelectedJob(job);
     setFormData(prev => ({ ...prev, position: job.title }));
     setShowForm(true);
@@ -242,7 +242,7 @@ Please contact me regarding this application.`;
                 value={formData.message}
                 onChange={handleInputChange}
                 rows={4}
-                placeholder="Tell us about your background, skills, and why you'd like to join our team..."
+                placeholder="Tell us about your background, skills, and why you&apos;d like to join our team..."
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
