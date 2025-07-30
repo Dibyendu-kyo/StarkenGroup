@@ -14,8 +14,8 @@ export default function AboutStatsSection() {
             {/* Stat 1 */}
             <div>
               <h3 className="text-xl font-semibold">
-                <span className="text-3xl font-bold text-gray-900">10+</span>{" "}
-                Industry Awards & Recognition
+                <span className="text-3xl font-bold text-gray-900">15+</span>{" "}
+                Years Of Experience
               </h3>
               <p className="text-gray-600 text-sm mt-1">
                 Awards for excellence in customer service, innovation, & real estate expertise.
@@ -27,8 +27,8 @@ export default function AboutStatsSection() {
             {/* Stat 2 */}
             <div>
               <h3 className="text-xl font-semibold">
-                <span className="text-3xl font-bold text-gray-900">10,000+</span>{" "}
-                Happy Investors
+                <span className="text-3xl font-bold text-gray-900">200+</span>{" "}
+                Happy Clients
               </h3>
               <p className="text-gray-600 text-sm mt-1">
                 Facilitating investments, helping clients grow their portfolios with confidence.
@@ -40,11 +40,11 @@ export default function AboutStatsSection() {
             {/* Stat 3 */}
             <div>
               <h3 className="text-xl font-semibold">
-                <span className="text-3xl font-bold text-gray-900">500+</span>{" "}
-                Happy Homeowners
+                <span className="text-3xl font-bold text-gray-900">10+</span>{" "}
+                Companies
               </h3>
               <p className="text-gray-600 text-sm mt-1">
-                Helping thousands of homeowners providing service throughout the journey.
+
               </p>
             </div>
           </div>

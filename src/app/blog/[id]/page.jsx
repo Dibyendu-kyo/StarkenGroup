@@ -1,8 +1,14 @@
-'use client';
 import { notFound } from 'next/navigation';
 import blogs from '@/data/blogs';
 import Link from 'next/link';
 import Image from 'next/image';
+
+// Add this function for static export
+export async function generateStaticParams() {
+  return blogs.map((blog) => ({
+    id: blog.id
+  }));
+}
 
 export default function BlogDetails({
   params

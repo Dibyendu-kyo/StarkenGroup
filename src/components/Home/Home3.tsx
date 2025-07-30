@@ -34,7 +34,7 @@ const IntroWithImage = () => {
       {/* Right Section */}
       <div className="lg:w-1/2 flex flex-col relative h-80 lg:h-auto">
         <Image
-          src="/main logo/Screenshot_2025-07-12_210534-removebg-preview.png"
+          src="/main-logo/Screenshot_2025-07-12_210534-removebg-preview.png"
           alt="Starken Groups Logo"
           fill
           className="object-contain"

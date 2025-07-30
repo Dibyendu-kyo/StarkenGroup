@@ -14,31 +14,85 @@ export default function ContactSection() {
           We&rsquo;re here to help you with all your real estate needs. Whether you&rsquo;re looking to buy, sell, or invest, our team is ready to assist you.
         </p>
 
-        <form onSubmit={(e) => {
+        <form onSubmit={async (e) => {
           e.preventDefault();
-          const formData = new FormData(e.currentTarget);
-          const firstName = formData.get('first') as string;
-          const lastName = formData.get('lastName') as string;
-          const email = formData.get('email') as string;
-          const phone = formData.get('phone') as string;
-          const message = formData.get('message') as string;
           
-          const whatsappMessage = `Hello! I'd like to get in touch with Starken Groups.
+          try {
+            const formData = new FormData(e.currentTarget);
+            const firstName = formData.get('firstName') as string;
+            const lastName = formData.get('lastName') as string;
+            const email = formData.get('email') as string;
+            const phone = formData.get('phone') as string;
+            const message = formData.get('message') as string;
+            
+            // Send email using Formspree (free service)
+            const emailData = {
+              name: `${firstName} ${lastName}`,
+              email: email,
+              phone: phone || 'Not provided',
+              message: message,
+              _subject: 'New Contact Form Submission - Starken Groups',
+              _replyto: email,
+              _to: 'enquiry@starkencw.com'  // Explicitly set destination
+            };
+            
+            // Send email using Formspree
+            let emailSent = false;
+            try {
+              // Create form data for Formspree
+              const formData = new FormData();
+              formData.append('name', `${firstName} ${lastName}`);
+              formData.append('email', email);
+              formData.append('phone', phone || 'Not provided');
+              formData.append('message', message);
+              formData.append('_subject', 'New Contact Form Submission - Starken Groups');
+              formData.append('_replyto', email);
+              
+              const response = await fetch('https://formspree.io/f/movlldvg', {
+                method: 'POST',
+                body: formData
+              });
+              
+              if (response.ok) {
+                emailSent = true;
+                console.log('✅ Email sent successfully to enquiry@starkencw.com');
+              } else {
+                console.log('❌ Email failed to send');
+              }
+            } catch (emailError) {
+              console.log('❌ Email service error:', emailError);
+            }
+            
+            // Create WhatsApp message
+            const whatsappMessage = `Hello! I'd like to get in touch with Starken Groups.
 
 Name: ${firstName} ${lastName}
 Email: ${email}
-Phone: ${phone}
+Phone: ${phone || 'Not provided'}
 
 Message: ${message}
 
 Please contact me regarding my inquiry.`;
 
-          const whatsappUrl = `https://wa.me/919422526219?text=${encodeURIComponent(whatsappMessage)}`;
-          window.open(whatsappUrl, '_blank');
+            const whatsappUrl = `https://wa.me/919422526219?text=${encodeURIComponent(whatsappMessage)}`;
+            window.open(whatsappUrl, '_blank');
+            
+            if (emailSent) {
+              alert('✅ Success! Email sent to enquiry@starkencw.com and WhatsApp opened.');
+            } else {
+              alert('⚠️ WhatsApp opened. Email service needs setup - check console for details.');
+            }
+            
+            // Reset form
+            (e.target as HTMLFormElement).reset();
+          } catch (error) {
+            console.error('Form submission error:', error);
+            alert('There was an error. Please try again.');
+          }
         }} className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <input
             type="text"
-            name='first'
+            name='firstName'
             placeholder="First name*"
             className="border-b border-black p-2 outline-none"
             required
@@ -74,7 +128,7 @@ Please contact me regarding my inquiry.`;
                 type="submit"
                 className="bg-blue-950 text-white py-2 px-6 rounded-3xl w-fit hover:bg-white hover:text-black hover:border hover:border-black"
             >
-                Send via WhatsApp
+                Send Message
             </button>
           </div>
         </form>

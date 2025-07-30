@@ -11,13 +11,13 @@ export default function AboutSection() {
           <span>Who we are</span>
         </div>
         <h1 className="text-5xl mb-10">About us</h1>
-        <div className="relative w-full h-[500px]">
+        <div className="relative w-full h-[500px] flex items-center justify-center bg-gray-50 rounded-lg">
           <Image
-            src="/about/WhatsApp Image 2025-07-10 at 11.08.30 AM.jpeg"
-            alt="About section"
-            fill
+            src="/main-logo/Screenshot_2025-07-12_210534-removebg-preview.png"
+            alt="Starken Groups Logo"
+            width={400}
+            height={200}
             className="object-contain"
-            sizes="(max-width: 768px) 100vw, 45vw"
             quality={90}
           />
         </div>

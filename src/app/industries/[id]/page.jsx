@@ -3,6 +3,13 @@ import industryDetails from "@/data/industryDetails";
 import industries from "@/data/industries";
 import {Home} from "lucide-react";
 
+// Add this function for static export
+export async function generateStaticParams() {
+  return industries.map((industry) => ({
+    id: industry.id
+  }));
+}
+
 export default function IndustryDetailPage({ params }) {
   const industryId = params.id;
   const sector = industries.find((ind) => ind.id === industryId);

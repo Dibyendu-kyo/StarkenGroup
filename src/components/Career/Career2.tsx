@@ -84,29 +84,7 @@ export default function CareerPage() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
 
-    // Create WhatsApp message with application details
-    const message = `Hello! I'm interested in applying for the ${formData.position} position at Starken Groups.
-
-Name: ${formData.firstName} ${formData.lastName}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Experience: ${formData.experience} years
-
-${formData.message ? `Message: ${formData.message}` : ''}
-
-Please contact me regarding this application.`;
-
-    const whatsappUrl = `https://wa.me/919422526219?text=${encodeURIComponent(message)}`;
-    
-    // Open WhatsApp with pre-filled message
-    window.open(whatsappUrl, '_blank');
-    
-    alert("Thank you for your application! We've opened WhatsApp for you to send your application details.");
-  };
 
   if (showForm) {
     return (
@@ -128,7 +106,88 @@ Please contact me regarding this application.`;
         <div className="bg-white rounded-lg shadow-lg p-8">
           <h2 className="text-2xl font-semibold mb-6">Application Form</h2>
           
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={async (e) => {
+            e.preventDefault();
+            
+            try {
+              // Send email using Formspree (free service)
+              const emailData = {
+                name: `${formData.firstName} ${formData.lastName}`,
+                email: formData.email,
+                phone: formData.phone,
+                position: formData.position,
+                experience: formData.experience,
+                message: formData.message || 'No additional message',
+                _subject: `Job Application - ${formData.position} - Starken Groups`,
+                _replyto: formData.email,
+                _to: 'enquiry@starkencw.com'  // Explicitly set destination
+              };
+              
+              // Send email using Formspree
+              let emailSent = false;
+              try {
+                // Create form data for Formspree
+                const formDataToSend = new FormData();
+                formDataToSend.append('name', `${formData.firstName} ${formData.lastName}`);
+                formDataToSend.append('email', formData.email);
+                formDataToSend.append('phone', formData.phone);
+                formDataToSend.append('position', formData.position);
+                formDataToSend.append('experience', formData.experience);
+                formDataToSend.append('message', formData.message || 'No additional message');
+                formDataToSend.append('_subject', `Job Application - ${formData.position} - Starken Groups`);
+                formDataToSend.append('_replyto', formData.email);
+                
+                const response = await fetch('https://formspree.io/f/movlldvg', {
+                  method: 'POST',
+                  body: formDataToSend
+                });
+                
+                if (response.ok) {
+                  emailSent = true;
+                  console.log('✅ Application sent successfully to enquiry@starkencw.com');
+                } else {
+                  console.log('❌ Application failed to send');
+                }
+              } catch (emailError) {
+                console.log('❌ Email service error:', emailError);
+              }
+              
+              // Create WhatsApp message
+              const message = `Hello! I'm interested in applying for the ${formData.position} position at Starken Groups.
+
+Name: ${formData.firstName} ${formData.lastName}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Experience: ${formData.experience}
+
+${formData.message ? `Message: ${formData.message}` : ''}
+
+Please contact me regarding this application. I will send my resume separately.`;
+
+              const whatsappUrl = `https://wa.me/919422526219?text=${encodeURIComponent(message)}`;
+              window.open(whatsappUrl, '_blank');
+              
+              if (emailSent) {
+                alert('✅ Success! Application sent to enquiry@starkencw.com and WhatsApp opened.');
+              } else {
+                alert('⚠️ WhatsApp opened. Email service needs setup - check console for details.');
+              }
+              
+              // Reset form
+              setFormData({
+                firstName: "",
+                lastName: "",
+                email: "",
+                phone: "",
+                position: selectedJob?.title || "",
+                experience: "",
+                message: "",
+              });
+            } catch (error) {
+              console.error('Form submission error:', error);
+              alert('There was an error. Please try again.');
+            }
+          }} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">

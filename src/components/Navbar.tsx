@@ -99,7 +99,7 @@ function Navbar() {
               <Link href="/" className="flex items-center">
                 <div className="relative h-12 w-40">
                   <Image
-                    src="/main logo/Screenshot_2025-07-12_210534-removebg-preview.png"
+                    src="/main-logo/Screenshot_2025-07-12_210534-removebg-preview.png"
                     alt="Starken Groups Logo"
                     fill
                     className="object-contain"
@@ -117,37 +117,24 @@ function Navbar() {
                 <div key={link.title} className="relative">
                   {link.dropdown ? (
                     <div className="relative group">
-                      <button
-                        onClick={link.title === "About" ? toggleAboutDropdown : toggleCompaniesDropdown}
-                        className="flex items-center text-gray-600 px-2 py-1 lg:px-3 lg:py-2 text-[10px] lg:text-sm font-medium"
-                      >
+                      <button className="flex items-center text-gray-600 px-2 py-1 lg:px-3 lg:py-2 text-[10px] lg:text-sm font-medium">
                         {link.title}
-                        {(link.title === "About" ? isAboutDropdownOpen : isCompaniesDropdownOpen) ? (
-                          <ChevronUp className="ml-1 h-4 w-4" />
-                        ) : (
-                          <ChevronDown className="ml-1 h-4 w-4" />
-                        )}
+                        <ChevronDown className="ml-1 h-4 w-4 group-hover:rotate-180 transition-transform duration-200" />
                       </button>
 
-                      {(link.title === "About" ? isAboutDropdownOpen : isCompaniesDropdownOpen) && (
-                        <div className="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
-                          {link.dropdown.map((item) => (
-                            <Link
-                              key={item.title}
-                              href={item.href}
-                              target={item.external ? "_blank" : undefined}
-                              rel={item.external ? "noopener noreferrer" : undefined}
-                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                              onClick={() => {
-                                setIsAboutDropdownOpen(false);
-                                setIsCompaniesDropdownOpen(false);
-                              }}
-                            >
-                              {item.title}
-                            </Link>
-                          ))}
-                        </div>
-                      )}
+                      <div className="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                        {link.dropdown.map((item) => (
+                          <Link
+                            key={item.title}
+                            href={item.href}
+                            target={item.external ? "_blank" : undefined}
+                            rel={item.external ? "noopener noreferrer" : undefined}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          >
+                            {item.title}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   ) : (
                     <Link

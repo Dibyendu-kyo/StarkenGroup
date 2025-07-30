@@ -2,6 +2,7 @@
 import React from 'react';
 import { MapPin, Phone, Mail } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -12,11 +13,18 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Section */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2 text-white mb-4">
-              <span className="text-xl font-semibold">Starken Groups</span>
+            <div className="mb-4">
+              <Image
+                src="/main-logo/Screenshot_2025-07-12_210534-removebg-preview.png"
+                alt="Starken Groups Logo"
+                width={160}
+                height={60}
+                className="object-contain"
+                quality={90}
+              />
             </div>
             <p className="text-sm mb-4">
-              
+              Leading construction and engineering solutions provider with expertise across multiple industries.
             </p>
             <p className="text-xs mb-6">
               © {currentYear} Starken Groups. All rights reserved.
@@ -33,11 +41,14 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-[#ffff]" />
-                <a href="tel:+919422526219" className="hover:text-[black] transition-colors">+91 94225 26219</a>
+                <div className="flex flex-col gap-1">
+                  <a href="tel:+919422526219" className="hover:text-[#EB7C19] transition-colors">+91 94225 26219</a>
+                  <a href="tel:+919822039637" className="hover:text-[#EB7C19] transition-colors">+91 98220 39637</a>
+                </div>
               </li>
               <li className="flex items-center gap-3">
-                <Mail className="h-10 w-5 text-[#ffff]" />
-                <a href="mailto:support@starkencw.com" className="hover:text-[black] transition-colors">enquiry@starkencw.com</a>
+                <Mail className="h-5 w-5 text-[#ffff]" />
+                <a href="mailto:enquiry@starkencw.com" className="hover:text-[#EB7C19] transition-colors">enquiry@starkencw.com</a>
               </li>
             </ul>
           </div>
@@ -59,7 +70,7 @@ const Footer = () => {
             <h3 className="font-semibold text-white mb-4">Resources</h3>
             <ul className="space-y-2">
               <li><Link href="/career" >Career</Link></li>
-              <li><Link href="/">Blogs</Link></li>
+              <li><Link href="/blog">Blogs</Link></li>
               <li><Link href="/contact">Contact Us</Link></li>
             </ul>
           </div>
