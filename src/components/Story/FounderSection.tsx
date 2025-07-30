@@ -10,8 +10,8 @@ export default function FounderSection() {
             Industry <span className="text-[#EB7C19]">Leadership</span>
           </h2>
           <p className="text-gray-300 mb-6">
-            Our founder's vision and leadership have been the driving force behind
-            Starken Constroworld's success. As a group of self-motivated brothers, we
+            Our founder&apos;s vision and leadership have been the driving force behind
+            Starken Constroworld&apos;s success. As a group of self-motivated brothers, we
             bring unparalleled dedication and commitment to quality in construction
             materials supply.
           </p>

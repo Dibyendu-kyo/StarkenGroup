@@ -25,17 +25,6 @@ export default function ContactSection() {
             const phone = formData.get('phone') as string;
             const message = formData.get('message') as string;
             
-            // Send email using Formspree (free service)
-            const emailData = {
-              name: `${firstName} ${lastName}`,
-              email: email,
-              phone: phone || 'Not provided',
-              message: message,
-              _subject: 'New Contact Form Submission - Starken Groups',
-              _replyto: email,
-              _to: 'enquiry@starkencw.com'  // Explicitly set destination
-            };
-            
             // Send email using Formspree
             let emailSent = false;
             try {

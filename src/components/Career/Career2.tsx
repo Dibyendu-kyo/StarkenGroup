@@ -110,19 +110,6 @@ export default function CareerPage() {
             e.preventDefault();
             
             try {
-              // Send email using Formspree (free service)
-              const emailData = {
-                name: `${formData.firstName} ${formData.lastName}`,
-                email: formData.email,
-                phone: formData.phone,
-                position: formData.position,
-                experience: formData.experience,
-                message: formData.message || 'No additional message',
-                _subject: `Job Application - ${formData.position} - Starken Groups`,
-                _replyto: formData.email,
-                _to: 'enquiry@starkencw.com'  // Explicitly set destination
-              };
-              
               // Send email using Formspree
               let emailSent = false;
               try {

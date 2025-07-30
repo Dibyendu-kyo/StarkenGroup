@@ -11,15 +11,7 @@ function Navbar() {
   const [isCompaniesDropdownOpen, setIsCompaniesDropdownOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const toggleAboutDropdown = () => {
-    setIsAboutDropdownOpen(!isAboutDropdownOpen);
-    setIsCompaniesDropdownOpen(false);
-  };
 
-  const toggleCompaniesDropdown = () => {
-    setIsCompaniesDropdownOpen(!isCompaniesDropdownOpen);
-    setIsAboutDropdownOpen(false);
-  };
 
   // Flatten all companies from groups
   const allCompanies = groups.flatMap(group => group.companies);
