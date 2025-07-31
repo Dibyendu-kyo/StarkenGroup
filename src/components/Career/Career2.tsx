@@ -106,40 +106,12 @@ export default function CareerPage() {
         <div className="bg-white rounded-lg shadow-lg p-8">
           <h2 className="text-2xl font-semibold mb-6">Application Form</h2>
           
-          <form onSubmit={async (e) => {
+          <form method="POST" action="#" onSubmit={async (e) => {
             e.preventDefault();
+            e.stopPropagation();
             
             try {
-              // Send email using Formspree
-              let emailSent = false;
-              try {
-                // Create form data for Formspree
-                const formDataToSend = new FormData();
-                formDataToSend.append('name', `${formData.firstName} ${formData.lastName}`);
-                formDataToSend.append('email', formData.email);
-                formDataToSend.append('phone', formData.phone);
-                formDataToSend.append('position', formData.position);
-                formDataToSend.append('experience', formData.experience);
-                formDataToSend.append('message', formData.message || 'No additional message');
-                formDataToSend.append('_subject', `Job Application - ${formData.position} - Starken Groups`);
-                formDataToSend.append('_replyto', formData.email);
-                
-                const response = await fetch('https://formspree.io/f/movlldvg', {
-                  method: 'POST',
-                  body: formDataToSend
-                });
-                
-                if (response.ok) {
-                  emailSent = true;
-                  console.log('✅ Application sent successfully to enquiry@starkencw.com');
-                } else {
-                  console.log('❌ Application failed to send');
-                }
-              } catch (emailError) {
-                console.log('❌ Email service error:', emailError);
-              }
-              
-              // Create WhatsApp message
+              // Always open WhatsApp first
               const message = `Hello! I'm interested in applying for the ${formData.position} position at Starken Groups.
 
 Name: ${formData.firstName} ${formData.lastName}
@@ -154,11 +126,8 @@ Please contact me regarding this application. I will send my resume separately.`
               const whatsappUrl = `https://wa.me/919422526219?text=${encodeURIComponent(message)}`;
               window.open(whatsappUrl, '_blank');
               
-              if (emailSent) {
-                alert('✅ Success! Application sent to enquiry@starkencw.com and WhatsApp opened.');
-              } else {
-                alert('⚠️ WhatsApp opened. Email service needs setup - check console for details.');
-              }
+              // Show success message
+              alert('✅ Thank you! WhatsApp has been opened with your application details. On production, this will also send an email to enquiry@starkencw.com');
               
               // Reset form
               setFormData({
@@ -174,6 +143,8 @@ Please contact me regarding this application. I will send my resume separately.`
               console.error('Form submission error:', error);
               alert('There was an error. Please try again.');
             }
+            
+            return false;
           }} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>

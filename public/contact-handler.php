@@ -1,56 +1,153 @@
 <?php
-// Simple contact form handler for Hostinger
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    die('Method not allowed');
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Set headers for CORS and JSON response
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+
+// Handle preflight OPTIONS request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
 }
 
-// Get form data
-$firstName = isset($_POST['firstName']) ? trim($_POST['firstName']) : '';
-$lastName = isset($_POST['lastName']) ? trim($_POST['lastName']) : '';
-$email = isset($_POST['email']) ? trim($_POST['email']) : '';
-$phone = isset($_POST['phone']) ? trim($_POST['phone']) : '';
-$message = isset($_POST['message']) ? trim($_POST['message']) : '';
+// Only allow POST requests
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+    exit();
+}
 
-// Validate required fields
-if (empty($firstName) || empty($email) || empty($message)) {
-    die('Please fill in all required fields');
+// Get JSON input
+$input = file_get_contents('php://input');
+$data = json_decode($input, true);
+
+// Validate JSON data
+if (!$data) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => 'Invalid JSON data']);
+    exit();
+}
+
+// Extract form data
+$name = isset($data['name']) ? trim($data['name']) : '';
+$email = isset($data['email']) ? trim($data['email']) : '';
+$phone = isset($data['phone']) ? trim($data['phone']) : '';
+$company = isset($data['company']) ? trim($data['company']) : '';
+$service = isset($data['service']) ? trim($data['service']) : '';
+$projectType = isset($data['projectType']) ? trim($data['projectType']) : '';
+$budget = isset($data['budget']) ? trim($data['budget']) : '';
+$urgency = isset($data['urgency']) ? trim($data['urgency']) : '';
+$quantity = isset($data['quantity']) ? trim($data['quantity']) : '';
+$deliveryLocation = isset($data['deliveryLocation']) ? trim($data['deliveryLocation']) : '';
+$message = isset($data['message']) ? trim($data['message']) : '';
+
+// Basic validation
+if (empty($name) || empty($email) || empty($phone)) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => 'Name, email, and phone are required']);
+    exit();
 }
 
 // Validate email
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    die('Please enter a valid email address');
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => 'Invalid email format']);
+    exit();
 }
 
+// Sanitize inputs
+$name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
+$email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+$phone = htmlspecialchars($phone, ENT_QUOTES, 'UTF-8');
+$company = htmlspecialchars($company, ENT_QUOTES, 'UTF-8');
+$service = htmlspecialchars($service, ENT_QUOTES, 'UTF-8');
+$projectType = htmlspecialchars($projectType, ENT_QUOTES, 'UTF-8');
+$budget = htmlspecialchars($budget, ENT_QUOTES, 'UTF-8');
+$urgency = htmlspecialchars($urgency, ENT_QUOTES, 'UTF-8');
+$quantity = htmlspecialchars($quantity, ENT_QUOTES, 'UTF-8');
+$deliveryLocation = htmlspecialchars($deliveryLocation, ENT_QUOTES, 'UTF-8');
+$message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
+
 // Email configuration
-$to = 'enquiry@starkencw.com';
-$subject = 'New Contact Form Submission - Starken Groups';
+$admin_email = 'enquiry@starkencw.com';
+$subject = 'New Contact Form Submission - Starken Constroworld';
 
-// Create email content
-$emailContent = "
-New Contact Form Submission - Starken Groups
-=============================================
+// Build email body
+$email_body = "
+New contact form submission received:
 
-Name: {$firstName} {$lastName}
+Name: {$name}
 Email: {$email}
 Phone: {$phone}
+Company: {$company}
+Service Required: {$service}
+Project Type: {$projectType}
+Budget: {$budget}
+Urgency: {$urgency}
+Quantity: {$quantity}
+Delivery Location: {$deliveryLocation}
+Message: {$message}
 
-Message:
-{$message}
-
----------------------------------------------
-This message was sent from the Starken Groups contact form.
+Submitted on: " . date('Y-m-d H:i:s') . "
+IP Address: " . $_SERVER['REMOTE_ADDR'] . "
 ";
 
-// Email headers for Hostinger
-$headers = "From: noreply@" . $_SERVER['HTTP_HOST'] . "\r\n";
-$headers .= "Reply-To: {$email}\r\n";
-$headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
+// Email headers
+$headers = array(
+    'From: enquiry@starkencw.com',
+    'Reply-To: ' . $email,
+    'Content-Type: text/plain; charset=UTF-8',
+    'X-Mailer: PHP/' . phpversion()
+);
 
-// Send email using Hostinger's mail function
-if (mail($to, $subject, $emailContent, $headers)) {
-    echo '<script>alert("Thank you for your message! We will get back to you soon."); window.history.back();</script>';
+// Send email to admin
+$admin_sent = mail($admin_email, $subject, $email_body, implode("\r\n", $headers));
+
+// Send auto-reply to customer
+$auto_reply_subject = 'Thank you for contacting Starken Constroworld';
+$auto_reply_body = "
+Dear {$name},
+
+Thank you for contacting Starken Constroworld. We have received your inquiry and our team will get back to you within 24 hours.
+
+Your inquiry details:
+- Service: {$service}
+- Project Type: {$projectType}
+- Budget: {$budget}
+- Urgency: {$urgency}
+
+Office Address:
+DECCAN SQUARE, No. 301, 4th Floor, Lane No. 1, Bhandarkar Rd., Pune - 04
+
+Contact Information:
+Phone: +91 98220 39637
+Email: enquiry@starkencw.com
+
+Best regards,
+Starken Constroworld Team
+";
+
+$auto_reply_headers = array(
+    'From: enquiry@starkencw.com',
+    'Content-Type: text/plain; charset=UTF-8',
+    'X-Mailer: PHP/' . phpversion()
+);
+
+$auto_reply_sent = mail($email, $auto_reply_subject, $auto_reply_body, implode("\r\n", $auto_reply_headers));
+
+// Log the submission
+$log_entry = date('Y-m-d H:i:s') . " - {$name} ({$email}) - {$service}\n";
+file_put_contents('contact_log.txt', $log_entry, FILE_APPEND | LOCK_EX);
+
+// Return response
+if ($admin_sent) {
+    echo json_encode(['success' => true, 'message' => 'Thank you! Your message has been sent successfully.']);
 } else {
-    echo '<script>alert("Sorry, there was an error sending your message. Please try again later."); window.history.back();</script>';
+    echo json_encode(['success' => false, 'message' => 'Failed to send message. Please try again later.']);
 }
 ?>

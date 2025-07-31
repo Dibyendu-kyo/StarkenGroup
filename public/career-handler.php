@@ -1,103 +1,156 @@
 <?php
-// Simple career form handler for Hostinger
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    die('Method not allowed');
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Set headers for CORS and JSON response
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+
+// Handle preflight OPTIONS request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
 }
 
-// Get form data
-$firstName = isset($_POST['firstName']) ? trim($_POST['firstName']) : '';
-$lastName = isset($_POST['lastName']) ? trim($_POST['lastName']) : '';
-$email = isset($_POST['email']) ? trim($_POST['email']) : '';
-$phone = isset($_POST['phone']) ? trim($_POST['phone']) : '';
-$position = isset($_POST['position']) ? trim($_POST['position']) : '';
-$experience = isset($_POST['experience']) ? trim($_POST['experience']) : '';
-$message = isset($_POST['message']) ? trim($_POST['message']) : '';
+// Only allow POST requests
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+    exit();
+}
 
-// Validate required fields
-if (empty($firstName) || empty($lastName) || empty($email) || empty($phone) || empty($position) || empty($experience)) {
-    die('Please fill in all required fields');
+// Get JSON input
+$input = file_get_contents('php://input');
+$data = json_decode($input, true);
+
+// Validate JSON data
+if (!$data) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => 'Invalid JSON data']);
+    exit();
+}
+
+// Extract form data
+$firstName = isset($data['firstName']) ? trim($data['firstName']) : '';
+$lastName = isset($data['lastName']) ? trim($data['lastName']) : '';
+$email = isset($data['email']) ? trim($data['email']) : '';
+$phone = isset($data['phone']) ? trim($data['phone']) : '';
+$position = isset($data['position']) ? trim($data['position']) : '';
+$experience = isset($data['experience']) ? trim($data['experience']) : '';
+$skills = isset($data['skills']) ? trim($data['skills']) : '';
+$education = isset($data['education']) ? trim($data['education']) : '';
+$availability = isset($data['availability']) ? trim($data['availability']) : '';
+$expectedSalary = isset($data['expectedSalary']) ? trim($data['expectedSalary']) : '';
+$message = isset($data['message']) ? trim($data['message']) : '';
+
+// Basic validation
+if (empty($firstName) || empty($lastName) || empty($email) || empty($phone) || empty($position)) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => 'First name, last name, email, phone, and position are required']);
+    exit();
 }
 
 // Validate email
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    die('Please enter a valid email address');
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => 'Invalid email format']);
+    exit();
 }
 
-// Handle file upload
-$resumeInfo = '';
-if (isset($_FILES['resume']) && $_FILES['resume']['error'] === UPLOAD_ERR_OK) {
-    $uploadDir = 'uploads/resumes/';
-    
-    // Create directory if it doesn't exist
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0755, true);
-    }
-    
-    $fileName = time() . '_' . basename($_FILES['resume']['name']);
-    $uploadPath = $uploadDir . $fileName;
-    
-    // Validate file type
-    $allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-    $fileType = $_FILES['resume']['type'];
-    
-    // Also check by extension as backup
-    $fileExtension = strtolower(pathinfo($_FILES['resume']['name'], PATHINFO_EXTENSION));
-    $allowedExtensions = ['pdf', 'doc', 'docx'];
-    
-    if (!in_array($fileType, $allowedTypes) && !in_array($fileExtension, $allowedExtensions)) {
-        die('Please upload a PDF, DOC, or DOCX file');
-    }
-    
-    // Validate file size (5MB max)
-    if ($_FILES['resume']['size'] > 5 * 1024 * 1024) {
-        die('File size must be less than 5MB');
-    }
-    
-    if (move_uploaded_file($_FILES['resume']['tmp_name'], $uploadPath)) {
-        $resumeInfo = "Resume uploaded: {$_FILES['resume']['name']} (saved as: {$fileName})";
-    } else {
-        $resumeInfo = "Resume upload failed";
-    }
-} else {
-    $resumeInfo = "No resume uploaded";
-}
+// Sanitize inputs
+$firstName = htmlspecialchars($firstName, ENT_QUOTES, 'UTF-8');
+$lastName = htmlspecialchars($lastName, ENT_QUOTES, 'UTF-8');
+$email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+$phone = htmlspecialchars($phone, ENT_QUOTES, 'UTF-8');
+$position = htmlspecialchars($position, ENT_QUOTES, 'UTF-8');
+$experience = htmlspecialchars($experience, ENT_QUOTES, 'UTF-8');
+$skills = htmlspecialchars($skills, ENT_QUOTES, 'UTF-8');
+$education = htmlspecialchars($education, ENT_QUOTES, 'UTF-8');
+$availability = htmlspecialchars($availability, ENT_QUOTES, 'UTF-8');
+$expectedSalary = htmlspecialchars($expectedSalary, ENT_QUOTES, 'UTF-8');
+$message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
 
 // Email configuration
-$to = 'enquiry@starkencw.com';
-$subject = 'New Job Application - ' . $position . ' - Starken Groups';
+$admin_email = 'enquiry@starkencw.com';
+$subject = 'New Job Application - ' . $position . ' - Starken Constroworld';
 
-// Create email content
-$emailContent = "
-New Job Application - Starken Groups
-====================================
+// Build email body
+$email_body = "
+New job application received:
 
 Position Applied For: {$position}
 
 Applicant Details:
-------------------
 Name: {$firstName} {$lastName}
 Email: {$email}
 Phone: {$phone}
 Experience: {$experience}
+Skills: {$skills}
+Education: {$education}
+Availability: {$availability}
+Expected Salary: {$expectedSalary}
+Message: {$message}
 
-" . (!empty($message) ? "Cover Letter/Message:\n{$message}\n\n" : "") . "
-
-Resume: {$resumeInfo}
-
----------------------------------------------
-This application was submitted through the Starken Groups career page.
+Submitted on: " . date('Y-m-d H:i:s') . "
+IP Address: " . $_SERVER['REMOTE_ADDR'] . "
 ";
 
-// Email headers for Hostinger
-$headers = "From: noreply@" . $_SERVER['HTTP_HOST'] . "\r\n";
-$headers .= "Reply-To: {$email}\r\n";
-$headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
+// Email headers
+$headers = array(
+    'From: enquiry@starkencw.com',
+    'Reply-To: ' . $email,
+    'Content-Type: text/plain; charset=UTF-8',
+    'X-Mailer: PHP/' . phpversion()
+);
 
-// Send email using Hostinger's mail function
-if (mail($to, $subject, $emailContent, $headers)) {
-    echo '<script>alert("Thank you for your application! We will review it and get back to you soon."); window.history.back();</script>';
+// Send email to admin
+$admin_sent = mail($admin_email, $subject, $email_body, implode("\r\n", $headers));
+
+// Send auto-reply to applicant
+$auto_reply_subject = 'Thank you for your application - Starken Constroworld';
+$auto_reply_body = "
+Dear {$firstName} {$lastName},
+
+Thank you for your interest in the {$position} position at Starken Constroworld. We have received your application and our HR team will review it carefully.
+
+Application Details:
+- Position: {$position}
+- Experience: {$experience}
+- Availability: {$availability}
+
+We will contact you within 5-7 business days if your profile matches our requirements.
+
+Office Address:
+DECCAN SQUARE, No. 301, 4th Floor, Lane No. 1, Bhandarkar Rd., Pune - 04
+
+Contact Information:
+Phone: +91 98220 39637
+Email: enquiry@starkencw.com
+
+Best regards,
+HR Team
+Starken Constroworld
+";
+
+$auto_reply_headers = array(
+    'From: enquiry@starkencw.com',
+    'Content-Type: text/plain; charset=UTF-8',
+    'X-Mailer: PHP/' . phpversion()
+);
+
+$auto_reply_sent = mail($email, $auto_reply_subject, $auto_reply_body, implode("\r\n", $auto_reply_headers));
+
+// Log the submission
+$log_entry = date('Y-m-d H:i:s') . " - {$firstName} {$lastName} ({$email}) - {$position}\n";
+file_put_contents('career_log.txt', $log_entry, FILE_APPEND | LOCK_EX);
+
+// Return response
+if ($admin_sent) {
+    echo json_encode(['success' => true, 'message' => 'Thank you! Your application has been submitted successfully.']);
 } else {
-    echo '<script>alert("Sorry, there was an error submitting your application. Please try again later."); window.history.back();</script>';
+    echo json_encode(['success' => false, 'message' => 'Failed to submit application. Please try again later.']);
 }
 ?>

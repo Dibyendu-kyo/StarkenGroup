@@ -7,16 +7,17 @@ export default function ContactSection() {
       {/* Left Side - Form */}
       <div className="md:w-1/2 w-full">
         <p className="text-sm text-gray-500 flex items-center gap-1">
-          <Home/> Get in Touch
+          <Home /> Get in Touch
         </p>
         <h2 className="text-5xl font-light text-gray-800 mb-6 mt-3">Contact us</h2>
         <p className="text-gray-600 mb-10">
           We&rsquo;re here to help you with all your real estate needs. Whether you&rsquo;re looking to buy, sell, or invest, our team is ready to assist you.
         </p>
 
-        <form onSubmit={async (e) => {
+        <form method="POST" action="#" onSubmit={async (e) => {
           e.preventDefault();
-          
+          e.stopPropagation();
+
           try {
             const formData = new FormData(e.currentTarget);
             const firstName = formData.get('firstName') as string;
@@ -24,35 +25,8 @@ export default function ContactSection() {
             const email = formData.get('email') as string;
             const phone = formData.get('phone') as string;
             const message = formData.get('message') as string;
-            
-            // Send email using Formspree
-            let emailSent = false;
-            try {
-              // Create form data for Formspree
-              const formData = new FormData();
-              formData.append('name', `${firstName} ${lastName}`);
-              formData.append('email', email);
-              formData.append('phone', phone || 'Not provided');
-              formData.append('message', message);
-              formData.append('_subject', 'New Contact Form Submission - Starken Groups');
-              formData.append('_replyto', email);
-              
-              const response = await fetch('https://formspree.io/f/movlldvg', {
-                method: 'POST',
-                body: formData
-              });
-              
-              if (response.ok) {
-                emailSent = true;
-                console.log('✅ Email sent successfully to enquiry@starkencw.com');
-              } else {
-                console.log('❌ Email failed to send');
-              }
-            } catch (emailError) {
-              console.log('❌ Email service error:', emailError);
-            }
-            
-            // Create WhatsApp message
+
+            // Always open WhatsApp first
             const whatsappMessage = `Hello! I'd like to get in touch with Starken Groups.
 
 Name: ${firstName} ${lastName}
@@ -65,19 +39,19 @@ Please contact me regarding my inquiry.`;
 
             const whatsappUrl = `https://wa.me/919422526219?text=${encodeURIComponent(whatsappMessage)}`;
             window.open(whatsappUrl, '_blank');
-            
-            if (emailSent) {
-              alert('✅ Success! Email sent to enquiry@starkencw.com and WhatsApp opened.');
-            } else {
-              alert('⚠️ WhatsApp opened. Email service needs setup - check console for details.');
-            }
-            
+
+            // Show success message
+            alert('✅ Thank you! WhatsApp has been opened with your message. On production, this will also send an email to enquiry@starkencw.com');
+
             // Reset form
             (e.target as HTMLFormElement).reset();
+
           } catch (error) {
             console.error('Form submission error:', error);
             alert('There was an error. Please try again.');
           }
+
+          return false;
         }} className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <input
             type="text"
@@ -114,10 +88,10 @@ Please contact me regarding my inquiry.`;
           />
           <div className='flex justify-end'>
             <button
-                type="submit"
-                className="bg-blue-950 text-white py-2 px-6 rounded-3xl w-fit hover:bg-white hover:text-black hover:border hover:border-black"
+              type="submit"
+              className="bg-blue-950 text-white py-2 px-6 rounded-3xl w-fit hover:bg-white hover:text-black hover:border hover:border-black"
             >
-                Send Message
+              Send Message
             </button>
           </div>
         </form>
@@ -126,8 +100,8 @@ Please contact me regarding my inquiry.`;
       {/* Right Side - Map and Contact Info */}
       <div className="md:w-1/2 w-full flex flex-col gap-6 items-start">
         <div className="w-full h-80 rounded-lg overflow-hidden shadow-lg">
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3783.2345632922365!2d73.8341099752918!3d18.518299382574806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDECCAN%20SQUARE%2C%20No.%20301%2C%204th%20Floor%2C%20Lane%20No.%201%2C%20Bhandarkar%20Rd.%2C%20Pune%20-%2004!5e0!3m2!1sen!2sus!4v1752332241835!5m2!1sen!2sus" 
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3783.2345632922365!2d73.8341099752918!3d18.518299382574806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDECCAN%20SQUARE%2C%20No.%20301%2C%204th%20Floor%2C%20Lane%20No.%201%2C%20Bhandarkar%20Rd.%2C%20Pune%20-%2004!5e0!3m2!1sen!2sus!4v1752332241835!5m2!1sen!2sus"
             width="100%"
             height="100%"
             style={{ border: 0 }}

@@ -13,9 +13,12 @@ export default function IndustriesPage() {
       </div>
       <h2 className="text-4xl font-bold mb-12">Explore Our Industries</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-        {industries.map((industry) => (
-          <Link key={industry.id} href={`/industries/${industry.id}`}>
-            <div className="border p-6 rounded-xl text-center hover:shadow-lg transition bg-white">
+        {industries.map((industry) => {
+          const CardContent = (
+            <div className={`border p-6 rounded-xl text-center transition bg-white ${industry.disabled
+              ? 'opacity-75 cursor-not-allowed'
+              : 'hover:shadow-lg cursor-pointer'
+              }`}>
               <div className="relative w-full h-40 mb-4">
                 <Image
                   src={industry.icon}
@@ -29,9 +32,24 @@ export default function IndustriesPage() {
               <p className="text-sm text-gray-600 mt-2">
                 {industry.description}
               </p>
+              {industry.disabled && (
+                <p className="text-xs text-gray-400 mt-2 italic">
+                  Coming Soon
+                </p>
+              )}
             </div>
-          </Link>
-        ))}
+          );
+
+          return industry.disabled ? (
+            <div key={industry.id}>
+              {CardContent}
+            </div>
+          ) : (
+            <Link key={industry.id} href={`/industries/${industry.id}`}>
+              {CardContent}
+            </Link>
+          );
+        })}
       </div>
     </section>
   );

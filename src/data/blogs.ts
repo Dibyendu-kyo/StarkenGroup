@@ -1,201 +1,82 @@
 const blogs = [
   {
-    id: "negotiation-tips",
-    category: "Real Estate Strategies",
-    title: "Mastering real estate negotiations tips for buyers and sellers",
-    date: "Dec 18, 2024",
-    readTime: "2 min",
-    image: "/blogs/blog_1.png",
-    content: `Full blog content for negotiation tips...`
+    id: "building-future-real-estate",
+    category: "Real Estate Development",
+    title: "Building the Future with Starken Group – Real Estate That Lasts",
+    date: "Jan 15, 2025",
+    readTime: "4 min",
+    image: "/blogs/blogg_1.jpg",
+    excerpt: "At Starken Group, we believe real estate is not just about buildings. It's about building better lives and better cities.",
+    keywords: ["real estate development", "construction company", "property developers", "sustainable real estate", "commercial real estate"],
+    content: `At Starken Group, we believe real estate is not just about buildings. It's about building better lives and better cities. As a reliable real estate development company, we focus on creating strong, smart, and sustainable spaces where people can live, work, and grow.
+
+What Makes Us Different
+
+Smart Planning – We choose the right locations that offer value and long-term growth.
+
+Strong Construction – Our buildings are made using quality materials and expert teams.
+
+Eco-Friendly Approach – We follow green building practices to save energy and reduce impact on the environment.
+
+Whether it's residential apartments, commercial buildings, or mixed-use properties, Starken Group always puts people and quality first.
+
+If you're looking for real estate that offers value, safety, and a better future, Starken Group is the name you can trust.`
   },
   {
-    id: "agent-questions",
-    category: "Tips",
-    title: "5 essential questions to ask before choosing a real estate agent",
-    date: "Dec 18, 2024",
+    id: "rebar-couplers-construction",
+    category: "Construction Materials",
+    title: "How Starken Group is Powering Modern Construction – REBAR Couplers and More",
+    date: "Jan 10, 2025",
     readTime: "5 min",
-    image: "/blogs/blog_2.png",
-    content: `Full blog content for agent questions...`
+    image: "/blogs/blogg_2.jpg",
+    excerpt: "Construction today needs strength, speed, and safety. That's exactly what Starken Group provides.",
+    keywords: ["REBAR couplers", "construction material manufacturer", "oil grooving", "steel fabrication", "industrial products"],
+    content: `Construction today needs strength, speed, and safety. That's exactly what Starken Group provides. We are a trusted manufacturer of high-quality REBAR couplers, oil grooving parts, and steel fabrication components that improve construction efficiency.
+
+Our Key Products
+
+REBAR Couplers – Used to connect steel bars, helping save time, reduce waste, and increase safety on site.
+
+Oil Grooving – High-precision grooving solutions that improve the performance and lifespan of mechanical parts.
+
+Steel Fabrication – Custom and standard steel components used in construction and industrial projects.
+
+Why Builders and Engineers Choose Us
+• Reliable quality
+• On-time delivery
+• Competitive pricing
+• Custom manufacturing options
+
+If you're in the construction industry and need durable, tested materials, Starken Group is your reliable partner.`
   },
   {
-    id: "location-impact",
-    category: "Property Value",
-    title: "How location impacts property value insights buyer needs to know",
-    date: "Dec 18, 2024",
-    readTime: "6 min",
-    image: "/blogs/blog_3.png",
-    content: `Full blog content for location impact...`
-  },
-  {
-    id: "home-staging-secrets",
-    category: "Home Improvement",
-    title: "Home staging secrets to sell faster",
-    date: "Nov 30, 2024",
+    id: "industrial-bushes-importance",
+    category: "Industrial Components",
+    title: "Small Parts, Big Impact – The Importance of Bushes by Starken Group",
+    date: "Jan 05, 2025",
     readTime: "3 min",
-    image: "/blogs/blog_2.png",
-    content: `Full blog content for home staging secrets...`
-  },
-  {
-    id: "real-estate-investing-101",
-    category: "Investment",
-    title: "Real estate investing for beginners: A guide",
-    date: "Nov 10, 2024",
-    readTime: "4 min",
-    image: "/blogs/blog_3.png",
-    content: `Full blog content for real estate investing...`
-  },
-  {
-    id: "mortgage-tips-first-buyers",
-    category: "Finance",
-    title: "Mortgage tips every first-time home buyer should know",
-    date: "Oct 25, 2024",
-    readTime: "3 min",
-    image: "/blogs/blog_4.png",
-    content: `Full blog content for mortgage tips...`
-  },
-  {
-    id: "sustainable-housing-trends",
-    category: "Trends",
-    title: "Top sustainable housing trends in 2025",
-    date: "Oct 10, 2024",
-    readTime: "2 min",
-    image: "/blogs/blog_5.png",
-    content: `Full blog content for sustainable housing...`
-  },
-  {
-    id: "avoid-home-buying-mistakes",
-    category: "Real Estate Advice",
-    title: "Top 5 mistakes to avoid when buying your first home",
-    date: "Sep 28, 2024",
-    readTime: "3 min",
-    image: "/blogs/blog_6.png",
-    content: `Full blog content for home buying mistakes...`
-  },
-  {
-    id: "property-inspection-checklist",
-    category: "Guides",
-    title: "Property inspection checklist before buying a home",
-    date: "Sep 15, 2024",
-    readTime: "2 min",
-    image: "/blogs/blog_7.png",
-    content: `Full blog content for property inspection checklist...`
-  },
-  {
-    id: "urban-vs-suburban-living",
-    category: "Lifestyle",
-    title: "Urban vs Suburban: Which lifestyle suits you?",
-    date: "Aug 30, 2024",
-    readTime: "2 min",
-    image: "/blogs/blog_8.png",
-    content: `Full blog content for urban vs suburban living...`
-  },
-  {
-    id: "prepare-your-home-sale",
-    category: "Selling",
-    title: "How to prepare your home for sale in 2025",
-    date: "Aug 15, 2024",
-    readTime: "3 min",
-    image: "/blogs/blog_9.png",
-    content: `Full blog content for preparing home for sale...`
-  },
-  {
-    id: "interior-design-trends",
-    category: "Interior Design",
-    title: "Interior design trends that boost property value",
-    date: "Jul 28, 2024",
-    readTime: "2 min",
-    image: "/blogs/blog_10.png",
-    content: `Full blog content for interior design trends...`
-  },
-  {
-    id: "benefits-of-hiring-agent",
-    category: "Agents",
-    title: "Why hiring a real estate agent pays off",
-    date: "Jul 10, 2024",
-    readTime: "3 min",
-    image: "/blogs/blog_11.png",
-    content: `Full blog content for benefits of hiring an agent...`
-  },
-  {
-    id: "renting-vs-buying-home",
-    category: "Real Estate Advice",
-    title: "Renting vs Buying: Which is right for you?",
-    date: "Jun 20, 2024",
-    readTime: "2 min",
-    image: "/blogs/blog_12.png",
-    content: `Full blog content for renting vs buying...`
-  },
-  {
-    id: "luxury-home-trends",
-    category: "Luxury",
-    title: "Luxury home trends defining 2025",
-    date: "Jun 05, 2024",
-    readTime: "2 min",
-    image: "/blogs/blog_13.png",
-    content: `Full blog content for luxury home trends...`
-  },
-  {
-    id: "first-time-seller-guide",
-    category: "Selling",
-    title: "A first-time home sellers guide",
-    date: "May 18, 2024",
-    readTime: "3 min",
-    image: "/blogs/blog_14.png",
-    content: `Full blog content for first-time seller guide...`
-  },
-  {
-    id: "property-valuation-tips",
-    category: "Real Estate Tips",
-    title: "How to correctly value your property",
-    date: "May 01, 2024",
-    readTime: "3 min",
-    image: "/blogs/blog_15.png",
-    content: `Full blog content for property valuation...`
-  },
-  {
-    id: "understanding-property-tax",
-    category: "Finance",
-    title: "Understanding property tax before buying",
-    date: "Apr 15, 2024",
-    readTime: "2 min",
-    image: "/blogs/blog_16.png",
-    content: `Full blog content for understanding property tax...`
-  },
-  {
-    id: "tips-for-open-houses",
-    category: "Marketing",
-    title: "Top tips to host a successful open house",
-    date: "Apr 01, 2024",
-    readTime: "2 min",
-    image: "/blogs/blog_17.png",
-    content: `Full blog content for open house tips...`
-  },
-  {
-    id: "real-estate-terms-glossary",
-    category: "Education",
-    title: "Essential real estate terms you should know",
-    date: "Mar 18, 2024",
-    readTime: "4 min",
-    image: "/blogs/blog_18.png",
-    content: `Full blog content for real estate glossary...`
-  },
-  {
-    id: "home-maintenance-checklist",
-    category: "Home Improvement",
-    title: "Home maintenance checklist for new buyers",
-    date: "Mar 01, 2024",
-    readTime: "3 min",
-    image: "/blogs/blog_19.png",
-    content: `Full blog content for home maintenance checklist...`
-  },
-  {
-    id: "real-estate-tech-trends",
-    category: "Technology",
-    title: "How technology is reshaping real estate in 2025",
-    date: "Feb 20, 2024",
-    readTime: "3 min",
-    image: "/blogs/blog_20.png",
-    content: `Full blog content for tech trends in real estate...`
+    image: "/blogs/blogg_3.jpg",
+    excerpt: "In machines, some of the smallest parts play the biggest roles. Bushes are one such component.",
+    keywords: ["industrial bushes", "machinery parts", "custom bushes", "metal bushes", "bush manufacturer"],
+    content: `In machines, some of the smallest parts play the biggest roles. Bushes are one such component. At Starken Group, we manufacture strong and reliable bushes that improve machine performance and reduce wear.
+
+What Are Bushes?
+
+Bushes are round sleeves placed between moving machine parts. They reduce friction, control motion, and protect the system from damage.
+
+Common Uses
+• Automotive parts
+• Industrial machines
+• Construction equipment
+• Manufacturing systems
+
+Why Choose Our Bushes
+• Long-lasting material
+• Precision manufacturing
+• Rust and heat resistance
+• Custom sizes available
+
+If you're looking for high-quality bushes that can handle pressure and reduce maintenance, Starken Group offers the right solution for your business.`
   }
 ];
 

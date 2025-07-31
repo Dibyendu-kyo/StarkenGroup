@@ -2,44 +2,51 @@ const companies = [
   {
     id: "manufacturing",
     title: "Manufacturing",
-    icon: "/companies/manufacturing_1.webp",
+    icon: "/images/industries/manufactruing.png",
     description: "Discover our industrial units and factory capabilities.",
+    disabled: false
   },
   {
     id: "trading",
     title: "Trading",
-    icon: "/companies/trading.webp",
+    icon: "/images/industries/trading.png",
     description: "Know our extensive trading operations across regions.",
+    disabled: false
   },
   {
     id: "services",
     title: "Services",
-    icon: "/companies/mech.webp",
+    icon: "/images/industries/services.png",
     description: "See the range of services we offer across sectors.",
+    disabled: false
   },
   {
     id: "construction",
     title: "Construction",
-    icon: "/companies/construction_2.webp",
-    description: "Explore our range of registered domains and online assets.",
+    icon: "/images/industries/construction.png",
+    description: "Building strong foundations for the future.",
+    disabled: false
   },
   {
     id: "defence",
     title: "Defence",
-    icon: "/companies/defence.webp",
-    description: "Explore our range of registered domains and online assets.",
+    icon: "/images/industries/defence.png",
+    description: "Supporting national security with quality products.",
+    disabled: true
   },
   {
     id: "automobile",
     title: "Automobile",
-    icon: "/companies/automobile.webp",
-    description: "Explore our range of registered domains and online assets.",
+    icon: "/images/industries/automobile.png",
+    description: "Automotive components and solutions.",
+    disabled: true
   },
   {
     id: "mechatronics",
     title: "Mechatronics",
-    icon: "/companies/manufacturing_2.webp",
-    description: "Explore our range of registered domains and online assets.",
+    icon: "/images/industries/mechatronics.png",
+    description: "Advanced mechanical and electronic integration.",
+    disabled: true
   },
 ];
 
