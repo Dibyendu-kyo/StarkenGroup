@@ -75,7 +75,7 @@ $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
 
 // Email configuration
 $admin_email = 'enquiry@starkencw.com';
-$subject = 'New Job Application - ' . $position . ' - Starken Constroworld';
+$subject = 'New Job Application - ' . $position . ' - Starken Ventures';
 
 // Build email body
 $email_body = "
@@ -110,30 +110,24 @@ $headers = array(
 $admin_sent = mail($admin_email, $subject, $email_body, implode("\r\n", $headers));
 
 // Send auto-reply to applicant
-$auto_reply_subject = 'Thank you for your application - Starken Constroworld';
-$auto_reply_body = "
-Dear {$firstName} {$lastName},
+$auto_reply_subject = 'Thank you for your application - Starken Ventures';
+$auto_reply_body = "Dear {$firstName} {$lastName},
 
-Thank you for your interest in the {$position} position at Starken Constroworld. We have received your application and our HR team will review it carefully.
+Thank you for your interest in the {$position} position at Starken Ventures. We have received your application and our HR team will review it carefully.
 
 Application Details:
 - Position: {$position}
 - Experience: {$experience}
-- Availability: {$availability}
 
 We will contact you within 5-7 business days if your profile matches our requirements.
 
-Office Address:
-DECCAN SQUARE, No. 301, 4th Floor, Lane No. 1, Bhandarkar Rd., Pune - 04
-
-Contact Information:
-Phone: +91 98220 39637
+Office: DECCAN SQUARE, No. 301, 4th Floor, Lane No. 1, Bhandarkar Rd., Pune - 411004
+Phone: +91 94225 26219
 Email: enquiry@starkencw.com
 
 Best regards,
 HR Team
-Starken Constroworld
-";
+Starken Ventures";
 
 $auto_reply_headers = array(
     'From: enquiry@starkencw.com',

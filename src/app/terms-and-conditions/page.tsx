@@ -82,7 +82,7 @@ export default function TermsAndConditions() {
           </p>
           <p className="mb-4">
             Email: enquiry@starkencw.com<br />
-            Address: DECCAN SQUARE, No. 301, 4th Floor, Lane No. 1, Bhandarkar Rd., Pune - 04, Maharashtra – 411033, India
+            Address: DECCAN SQUARE, No. 301, 4th Floor, Lane No. 1, Bhandarkar Rd., Pune - 411004
           </p>
         </section>
       </div>

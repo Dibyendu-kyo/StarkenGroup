@@ -111,8 +111,28 @@ export default function CareerPage() {
             e.stopPropagation();
             
             try {
-              // Always open WhatsApp first
-              const message = `Hello! I'm interested in applying for the ${formData.position} position at Starken Groups.
+              // Send to PHP handler
+              const response = await fetch('https://starkenventures.com/career-handler.php', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  firstName: formData.firstName,
+                  lastName: formData.lastName,
+                  email: formData.email,
+                  phone: formData.phone,
+                  position: formData.position,
+                  experience: formData.experience,
+                  message: formData.message
+                })
+              });
+
+              const result = await response.json();
+
+              if (result.success) {
+                // Also open WhatsApp
+                const message = `Hello! I'm interested in applying for the ${formData.position} position at Starken Groups.
 
 Name: ${formData.firstName} ${formData.lastName}
 Email: ${formData.email}
@@ -123,25 +143,27 @@ ${formData.message ? `Message: ${formData.message}` : ''}
 
 Please contact me regarding this application. I will send my resume separately.`;
 
-              const whatsappUrl = `https://wa.me/919422526219?text=${encodeURIComponent(message)}`;
-              window.open(whatsappUrl, '_blank');
-              
-              // Show success message
-              alert('✅ Thank you! WhatsApp has been opened with your application details. On production, this will also send an email to enquiry@starkencw.com');
-              
-              // Reset form
-              setFormData({
-                firstName: "",
-                lastName: "",
-                email: "",
-                phone: "",
-                position: selectedJob?.title || "",
-                experience: "",
-                message: "",
-              });
+                const whatsappUrl = `https://wa.me/919422526219?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+                
+                alert('✅ Thank you! Your application has been submitted successfully. We will review it and get back to you soon.');
+                
+                // Reset form
+                setFormData({
+                  firstName: "",
+                  lastName: "",
+                  email: "",
+                  phone: "",
+                  position: selectedJob?.title || "",
+                  experience: "",
+                  message: "",
+                });
+              } else {
+                throw new Error(result.message || 'Failed to submit application');
+              }
             } catch (error) {
               console.error('Form submission error:', error);
-              alert('There was an error. Please try again.');
+              alert('There was an error submitting your application. Please try again or contact us directly.');
             }
             
             return false;

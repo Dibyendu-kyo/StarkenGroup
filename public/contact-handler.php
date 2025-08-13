@@ -34,7 +34,9 @@ if (!$data) {
 }
 
 // Extract form data
-$name = isset($data['name']) ? trim($data['name']) : '';
+$firstName = isset($data['firstName']) ? trim($data['firstName']) : '';
+$lastName = isset($data['lastName']) ? trim($data['lastName']) : '';
+$name = trim($firstName . ' ' . $lastName);
 $email = isset($data['email']) ? trim($data['email']) : '';
 $phone = isset($data['phone']) ? trim($data['phone']) : '';
 $company = isset($data['company']) ? trim($data['company']) : '';
@@ -47,9 +49,9 @@ $deliveryLocation = isset($data['deliveryLocation']) ? trim($data['deliveryLocat
 $message = isset($data['message']) ? trim($data['message']) : '';
 
 // Basic validation
-if (empty($name) || empty($email) || empty($phone)) {
+if (empty($firstName) || empty($email)) {
     http_response_code(400);
-    echo json_encode(['success' => false, 'message' => 'Name, email, and phone are required']);
+    echo json_encode(['success' => false, 'message' => 'First name and email are required']);
     exit();
 }
 
@@ -75,7 +77,7 @@ $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
 
 // Email configuration
 $admin_email = 'enquiry@starkencw.com';
-$subject = 'New Contact Form Submission - Starken Constroworld';
+$subject = 'New Contact Form Submission - Starken Ventures';
 
 // Build email body
 $email_body = "
@@ -84,13 +86,6 @@ New contact form submission received:
 Name: {$name}
 Email: {$email}
 Phone: {$phone}
-Company: {$company}
-Service Required: {$service}
-Project Type: {$projectType}
-Budget: {$budget}
-Urgency: {$urgency}
-Quantity: {$quantity}
-Delivery Location: {$deliveryLocation}
 Message: {$message}
 
 Submitted on: " . date('Y-m-d H:i:s') . "
@@ -109,27 +104,23 @@ $headers = array(
 $admin_sent = mail($admin_email, $subject, $email_body, implode("\r\n", $headers));
 
 // Send auto-reply to customer
-$auto_reply_subject = 'Thank you for contacting Starken Constroworld';
+$auto_reply_subject = 'Thank you for contacting Starken Ventures';
 $auto_reply_body = "
 Dear {$name},
 
-Thank you for contacting Starken Constroworld. We have received your inquiry and our team will get back to you within 24 hours.
+Thank you for contacting Starken Ventures. We have received your inquiry and our team will get back to you within 24 hours.
 
-Your inquiry details:
-- Service: {$service}
-- Project Type: {$projectType}
-- Budget: {$budget}
-- Urgency: {$urgency}
+We will review your message and contact you soon to discuss how we can help with your requirements.
 
 Office Address:
-DECCAN SQUARE, No. 301, 4th Floor, Lane No. 1, Bhandarkar Rd., Pune - 04
+DECCAN SQUARE, No. 301, 4th Floor, Lane No. 1, Bhandarkar Rd., Pune - 411004
 
 Contact Information:
-Phone: +91 98220 39637
+Phone: +91 94225 26219
 Email: enquiry@starkencw.com
 
 Best regards,
-Starken Constroworld Team
+Starken Ventures Team
 ";
 
 $auto_reply_headers = array(

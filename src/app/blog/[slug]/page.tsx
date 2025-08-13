@@ -6,9 +6,9 @@ import { Calendar, Clock, ArrowLeft } from 'lucide-react';
 import { Metadata } from 'next';
 
 interface BlogPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {

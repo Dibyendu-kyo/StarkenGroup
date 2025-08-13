@@ -5,10 +5,23 @@ import Link from 'next/link';
 import { ArrowLeft, Home } from 'lucide-react';
 import { Metadata } from 'next';
 
+interface Service {
+  title: string;
+  description: string;
+  image: string;
+}
+
+interface Industry {
+  title: string;
+  description: string;
+  image: string;
+  services: Service[];
+}
+
 interface IndustryPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: IndustryPageProps): Promise<Metadata> {
@@ -35,7 +48,7 @@ export async function generateStaticParams() {
 
 export default async function IndustryPage({ params }: IndustryPageProps) {
   const { slug } = await params;
-  const industry = industryDetails[slug as keyof typeof industryDetails];
+  const industry = industryDetails[slug as keyof typeof industryDetails] as Industry;
 
   if (!industry) {
     notFound();

@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     question: "How can I contact Starken Groups?",
-    answer: "You can contact us at our office in DECCAN SQUARE, No. 301, 4th Floor, Lane No. 1, Bhandarkar Rd., Pune - 04, or email us at enquiry@starkencw.com. We're always ready to assist with your business needs."
+    answer: "You can contact us at our office in DECCAN SQUARE, No. 301, 4th Floor, Lane No. 1, Bhandarkar Rd., Pune - 411004, or email us at enquiry@starkencw.com. We're always ready to assist with your business needs."
   },
   {
     question: "What makes Starken Groups different from other companies?",

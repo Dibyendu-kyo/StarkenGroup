@@ -21,7 +21,7 @@ export default function FounderSection() {
             satisfaction. We continue to serve our clients with loyalty and trust.
           </p>
           <p className="text-gray-300 mb-8">
-            Today, under strong leadership, we serve 100+ happy customers across
+            Today, under strong leadership, we serve 200+ happy clients across
             India with quality materials, ensuring every project receives the reliability
             and trust it deserves.
           </p>
@@ -30,8 +30,8 @@ export default function FounderSection() {
           <div className="flex flex-col sm:flex-row gap-6">
             <div className="bg-white/10 p-6 rounded-lg text-center">
               <div className="text-[#EB7C19] text-2xl mb-2">👥</div>
-              <div className="text-2xl font-bold">100+</div>
-              <div className="text-sm text-gray-300">Happy Customers</div>
+              <div className="text-2xl font-bold">200+</div>
+              <div className="text-sm text-gray-300">Happy Clients</div>
             </div>
             <div className="bg-white/10 p-6 rounded-lg text-center">
               <div className="text-[#EB7C19] text-2xl mb-2">🏆</div>
@@ -60,7 +60,7 @@ export default function FounderSection() {
             </div>
             <div className="text-center mt-6">
               <h3 className="text-xl font-bold text-[#EB7C19]">Industry Leadership</h3>
-              <p className="text-sm text-gray-300">10+ Years in Materials Supply</p>
+              <p className="text-sm text-gray-300">10+ Years in Materials Supply | 200+ Clients</p>
               <p className="text-xs text-[#EB7C19] mt-2">Founder & Managing Director</p>
               <div className="flex justify-center gap-4 mt-4">
                 <div className="flex items-center gap-2 text-xs">

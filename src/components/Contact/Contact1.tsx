@@ -26,8 +26,26 @@ export default function ContactSection() {
             const phone = formData.get('phone') as string;
             const message = formData.get('message') as string;
 
-            // Always open WhatsApp first
-            const whatsappMessage = `Hello! I'd like to get in touch with Starken Groups.
+            // Send to PHP handler
+            const response = await fetch('https://starkenventures.com/contact-handler.php', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                firstName,
+                lastName,
+                email,
+                phone,
+                message
+              })
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+              // Also open WhatsApp
+              const whatsappMessage = `Hello! I'd like to get in touch with Starken Groups.
 
 Name: ${firstName} ${lastName}
 Email: ${email}
@@ -37,18 +55,18 @@ Message: ${message}
 
 Please contact me regarding my inquiry.`;
 
-            const whatsappUrl = `https://wa.me/919422526219?text=${encodeURIComponent(whatsappMessage)}`;
-            window.open(whatsappUrl, '_blank');
+              const whatsappUrl = `https://wa.me/919422526219?text=${encodeURIComponent(whatsappMessage)}`;
+              window.open(whatsappUrl, '_blank');
 
-            // Show success message
-            alert('✅ Thank you! WhatsApp has been opened with your message. On production, this will also send an email to enquiry@starkencw.com');
-
-            // Reset form
-            (e.target as HTMLFormElement).reset();
+              alert('✅ Thank you! Your message has been sent successfully. We will get back to you soon.');
+              (e.target as HTMLFormElement).reset();
+            } else {
+              throw new Error(result.message || 'Failed to send message');
+            }
 
           } catch (error) {
             console.error('Form submission error:', error);
-            alert('There was an error. Please try again.');
+            alert('There was an error sending your message. Please try again or contact us directly.');
           }
 
           return false;
@@ -117,7 +135,7 @@ Please contact me regarding my inquiry.`;
             <div>
               <p className="font-semibold text-black">Office Address</p>
               <p className="text-gray-600">
-                DECCAN SQUARE, No. 301, 4th Floor, Lane No. 1, Bhandarkar Rd., Pune - 04
+                DECCAN SQUARE, No. 301, 4th Floor, Lane No. 1, Bhandarkar Rd., Pune - 411004
               </p>
             </div>
           </div>

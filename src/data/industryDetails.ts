@@ -1,4 +1,17 @@
-export const industryDetails: Record<string, any> = {
+interface Service {
+  title: string;
+  description: string;
+  image: string;
+}
+
+interface Industry {
+  title: string;
+  description: string;
+  image: string;
+  services: Service[];
+}
+
+export const industryDetails: Record<string, Industry> = {
   manufacturing: {
     title: "Manufacturing",
     description: "Discover our industrial units and factory capabilities.",

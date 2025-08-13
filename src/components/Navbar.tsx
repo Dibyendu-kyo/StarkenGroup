@@ -34,20 +34,23 @@ function Navbar() {
       dropdown: [
         { title: "Our Companies", href: "/companies", external: false },
         ...allCompanies.map(company => {
-          // Special handling for companies with specific external websites
-          let externalUrl = "";
+          // Only provide links for companies that have websites
+          let href = "#";
+          let external = false;
+          
           if (company.name === "Starken Constroworld") {
-            externalUrl = "https://starkencw.com/";
+            href = "https://starkencw.com/";
+            external = true;
           } else if (company.name === "Shrinidhi Innotech") {
-            externalUrl = "https://shrinidhiipl.com";
-          } else {
-            externalUrl = `https://${company.name.toLowerCase().replace(/\s+/g, '')}.com`;
+            href = "https://shrinidhiipl.com";
+            external = true;
           }
+          // All other companies will have href="#" and external=false
           
           return {
             title: company.name,
-            href: externalUrl,
-            external: true
+            href: href,
+            external: external
           };
         })
       ],
