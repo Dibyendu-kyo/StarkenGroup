@@ -25,7 +25,7 @@ export default function FounderSection() {
             India with quality materials, ensuring every project receives the reliability
             and trust it deserves.
           </p>
-          
+
           {/* Statistics */}
           <div className="flex flex-col sm:flex-row gap-6">
             <div className="bg-white/10 p-6 rounded-lg text-center">
